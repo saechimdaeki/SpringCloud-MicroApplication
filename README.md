@@ -50,3 +50,33 @@ Spring Cloud로 개발하는 마이크로서비스 애플리케이션 실습 저
 - 기술방식
     - SOA- 공통의 서비스를 ESB에 모아 사업 측면에서 공통서비스 형식으로 서비스 제공
     - MSA- 각 독립된 서비스가 노출된 REST API 를 사용 
+
+---
+
+### Netflix Ribbon
+
+- Spring Cloud에서의 MSA간 통신
+
+1) RestTemplate
+
+```java
+RestTemplate restTemplate=new RestTemplate();
+restTemplate.getForObject("http://localhost:8080/",User.class,200);
+```
+
+2) Feign Client
+
+```java
+@FeignClient("stores")
+public interface StoreClient{
+  @RequestMapping(method=RequestMethod.GET, value="/stores")
+  List<Store> getStores();
+}
+```
+
+- Ribbon: Client side Load Balancer
+  - 서비스 이름으로 호출
+  - Health Check
+
+- Spring Cloud Ribbon은 Spring Boot 2.4에서 Maintenance상태..
+
