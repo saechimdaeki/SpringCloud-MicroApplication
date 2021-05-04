@@ -80,3 +80,7 @@ public interface StoreClient{
 
 - Spring Cloud Ribbon은 Spring Boot 2.4에서 Maintenance상태..
 
+
+
+----
+
