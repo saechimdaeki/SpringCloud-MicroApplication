@@ -43,6 +43,7 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
 
         - id: order-service
           uri: lb://ORDER-SERVICE
@@ -79,3 +80,7 @@ spring:
             baseMessage: Spring Cloud Gateway Global Filter
             preLogger: true
             postLogger: true
+
+
+token:
+  secret: saechimdaekiTokenabcdefghijklmnopqrstuvwxyz

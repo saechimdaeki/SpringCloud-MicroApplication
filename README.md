@@ -84,3 +84,15 @@ public interface StoreClient{
 
 ----
 
+### Token 기반 인증 시스템 ex) JWT
+
+- JWT (JSON Web Token)
+  - Https://jwt.io/
+  - 인증 헤더 내에서 사용되는 토큰 포맷
+  - 두개의 시스템끼리 안전한 방법으로 통신가능
+
+- JWT(JSON WEB TOKEN) 장점
+  - 클라이언트 독립적인 서비스 (stateless)
+  - CDN
+  - No Cookie- Session (No CSRF, 사이트간 요청위조)
+  - 지속적인 토큰 저장
