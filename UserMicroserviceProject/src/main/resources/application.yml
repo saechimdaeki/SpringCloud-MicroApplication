@@ -38,6 +38,13 @@ logging:
   level:
     com.example.usermicroserviceproject: DEBUG
 
-token:
-  expiration_time: 86400000 #1day
-  secret: saechimdaekiTokenabcdefghijklmnopqrstuvwxyz
+
+#token:
+#  expiration_time: 86400000 #1day
+#  secret: saechimdaekiTokenabcdefghijklmnopqrstuvwxyz
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans
