@@ -4,9 +4,13 @@ server:
 spring:
   application:
     name: config-service
+  profiles:
+    active: native
   cloud:
     config:
       server:
+        native:
+          search-locations: file://${user.home}/Desktop/SpringCloud-MicroApplication-Config
         git:
           uri: https://github.com/saechimdaeki/SpringCloud-MicroApplication-Config
           default-label: main
