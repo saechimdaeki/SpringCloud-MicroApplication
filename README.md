@@ -145,6 +145,8 @@ public interface StoreClient{
 
 
 
+Export PATH=$PATH:/usr/local/sbin
+
 rabbitmq== default port:15672 id: gest pwd:guest
 
 start==rabbitmq-server
