@@ -97,8 +97,8 @@ spring:
 
 
 
-token:
-  secret: saechimdaekiTokenabcdefghijklmnopqrstuvwxyz
+#token:
+#  secret: saechimdaekiTokenabcdefghijklmnopqrstuvwxyz
 management:
   endpoints:
     web:
