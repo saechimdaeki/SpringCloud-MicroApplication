@@ -1,5 +1,6 @@
 package com.example.usermicroserviceproject.service;
 
+import com.example.usermicroserviceproject.client.OrderServiceClient;
 import com.example.usermicroserviceproject.domain.UserEntity;
 import com.example.usermicroserviceproject.dto.UserDto;
 import com.example.usermicroserviceproject.repository.UserRepository;
@@ -32,6 +33,8 @@ public class UserServiceImpl implements UserService{
     private final Environment env;
     private final RestTemplate restTemplate;
 
+    private final OrderServiceClient orderServiceClient;
+
     @Override
     public UserDto createUser(UserDto userDto) {
         userDto.setUserId(UUID.randomUUID().toString());
@@ -58,11 +61,15 @@ public class UserServiceImpl implements UserService{
 
         //List<ResponseOrder> orders=new ArrayList<>();
         /* Using as rest template */
-        String orderUrl=String.format(env.getProperty("order_service.url"), userId);
-        ResponseEntity<List<ResponseOrder>>  orderListResponse= restTemplate.exchange(orderUrl, HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<ResponseOrder>>() {
-        });
-        List<ResponseOrder> orderList=orderListResponse.getBody();
+//        String orderUrl=String.format(env.getProperty("order_service.url"), userId);
+//        ResponseEntity<List<ResponseOrder>>  orderListResponse= restTemplate.exchange(orderUrl, HttpMethod.GET, null,
+//                new ParameterizedTypeReference<List<ResponseOrder>>() {
+//        });
+//        List<ResponseOrder> orderList=orderListResponse.getBody();
+
+        /* Using a feign Client */
+        List<ResponseOrder> orderList=orderServiceClient.getOrders(userId);
+
         userDto.setOrders(orderList);
 
         return userDto;

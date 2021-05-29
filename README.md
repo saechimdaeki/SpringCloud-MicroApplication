@@ -150,3 +150,20 @@ Export PATH=$PATH:/usr/local/sbin
 rabbitmq== default port:15672 id: gest pwd:guest
 
 start==rabbitmq-server
+
+
+
+
+
+---
+
+
+
+# Fegin Web Service Client
+
+- FeignClient -> HTTP Client
+  - REST Call 을 추상화한 Spring Cloud Netflix 라이브러리
+- 사용 방법
+  - 호출하려는 HTTP Endpoint에 대한 Interface를 생성
+  - @FeginClient선언
+- Load balanced 지원
