@@ -167,3 +167,75 @@ start==rabbitmq-server
   - 호출하려는 HTTP Endpoint에 대한 Interface를 생성
   - @FeginClient선언
 - Load balanced 지원
+
+
+
+----
+
+
+
+# Apache Kafka
+
+- Apache Software Foundation의 Scalar 언어로 된 오픈소스 메시지 브로커 프로젝트
+  - Open Source Message Broker Project
+- 링크드인(Linked-in)에서 개발, 2011년 오픈 소스화
+  - 2014년 11월 링크드인에서 kafka를 개발하던 엔지니어들이 kafka개발에 집중하기위해 Confluent라는 회사 창립
+- 실시간 데이터 피드를 관리하기 위해 통일된 높은 처리량, 낮은 지연 시간을 지닌 플랫폼 제공
+- Apple, Netflix, Shopify, Yelp, Kakao, New York Times, Cisco, Ebay, PayPal, Hyperledger Fabric, Uber, Salesforce.com등이 사용
+
+
+
+- Producer/Consumer 분리
+- 메시지를 여러 Consumer에게 허용
+- 높은 처리량을 위한 메시지 최적화
+- Scale-out 가능
+- Eco-system
+
+
+
+### Kafka Broker
+
+- 실행된 Kafka 애플리케이션 서버
+- 3대 이상의 Broker Cluster 구성
+- Zookeeper 연동
+  - 역할: 메타데이터 (Broker ID, Controller ID 등) 저장
+  - Controller 정보 저장
+- n개 Broker 중 1대는 Controller 기능 수행
+  - Controller 역할
+    - 각 Broker에게 담당 파티션 할당 수행
+    - Broker 정상 동작 모니터링 관리
+
+---
+
+### EcoSystem 1 - Kafka Client
+
+- Kafka와 데이터를 주고받기 위해 사용하는 Java Library
+- Producer, Consumer, Admin, Stream end Kafka관련 API 제공
+- 다양한 3rd party library 존재: c/c++, Node.js, Python, .NET 등 
+
+
+
+### Kafka 서버 기동
+
+- Zookeeper 및 Kafka 서버 구동
+  - $KAFKA_HOME/bin/zookeeper-server-start.sh
+    - $KAFKA_HOME/config/zookeeper.properties
+  - $KAFKA_HOME/bin/kafka-server-start.sh
+    - $KAFKA_HOME/config/server.properties
+
+- Topic 생성
+  - $KAFKA_HOME/bin/kafka-topics.sh --create --topic QuickStart-events --bootstrap-server localhost:9092 \ --partitions 1
+- Topic 목록 확인
+  - $KAFKA_HOME/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
+- Topic 정보 확인
+  - $KAFKA_HOME/bin/kafka-topics.sh --decsribe --topic quickstart-events --bootstrap-server localhost:9092
+
+---
+
+### Kafka Producer / Consumer 테스트
+
+- 메시지 생산
+  - $KAFKA_HOME/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic quickstart-events
+- 메시지 소비
+  - $KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic quickstart-events \ --from-beginning
+
