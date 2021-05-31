@@ -271,3 +271,45 @@ plugin.path=/Users/Desktop/kafka/confluentic-kafka-connect-jdbc-10.0.1/lib
 
 - JdbcSourceConnector에서 MariaDB 사용하기 위해 mariadb드라이버 복사
   - ./share/java/kafka/ 폴더에 mariadb-java-client-2.7.2.jar 파일 복사
+
+---
+
+### Ecosystem 2 -Kafka Conect
+
+- Kafka Connect를 통해 Data를 Import/Export 가능
+
+- 코드 없이 Configuration으로 데이터를 이동
+
+- Standalone mode, Distribution mode 지원
+
+  - RESTful API통해 지원
+  - Stream 또는 Batch 형태로 데이터 전송 가능
+  - 커스텀 Connector를 통한 다양한 Plugin 제공(File,S3,Hive, Mysql, etc ...)
+
+  
+
+  
+
+  ---
+
+  
+
+  127.0.0.1:8083/connectors
+
+```json
+{
+    "name": "my-sink-connect",
+    "config": {
+        "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+        "connection.url": "jdbc:mysql://localhost:3306/mydb",
+        "connection.user": "root",
+        "connection.password": "1234",
+        "auto.create":"true",
+        "auto.evolve":"true",
+        "delete.enabled":"false",
+        "tasks.max":"1",
+        "topics":"my_topic_users"
+    }
+}
+```
+
