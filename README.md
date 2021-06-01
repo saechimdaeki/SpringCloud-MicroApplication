@@ -313,3 +313,17 @@ plugin.path=/Users/Desktop/kafka/confluentic-kafka-connect-jdbc-10.0.1/lib
 }
 ```
 
+
+
+---
+
+in Project
+
+### 데이터 동기화 1  Orders -> Catalogs
+
+- Orders Service에 요청 된 주문의 수량 정보를 Catalogs Service에 반영
+- Orders Service에서 Kafka Topic으로 메시지 전송 -> Producer
+- Catalog Service에서 Kafka Topic에 전송 된 메시지 취득 -> Consumer
+
+![image](https://user-images.githubusercontent.com/40031858/120317563-be587900-c319-11eb-9aa2-1739de599313.png)
+
