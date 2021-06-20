@@ -8,6 +8,7 @@ import com.example.ordermicroservice.service.OrderServiceImpl;
 import com.example.ordermicroservice.vo.RequestOrder;
 import com.example.ordermicroservice.vo.ResponseOrder;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.core.env.Environment;
@@ -21,7 +22,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/order-service")
+@RequestMapping("/order-service") @Slf4j
 public class OrderController {
     private final Environment env;
     private final OrderServiceImpl orderService;
@@ -38,7 +39,7 @@ public class OrderController {
     @PostMapping("/{userId}/orders")
     public ResponseEntity<ResponseOrder> createUser(@PathVariable("userId") String userId,
                                                     @RequestBody RequestOrder order) {
-
+        log.info("Before add orders data");
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
@@ -58,18 +59,28 @@ public class OrderController {
         orderProducer.send("orders",orderDto);
 
         ResponseOrder responseOrder=mapper.map(orderDto,ResponseOrder.class);
+        log.info("after added orders data");
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseOrder);
     }
 
     @GetMapping("/{userId}/orders")
-    public ResponseEntity<List<ResponseOrder>> createUser(@PathVariable("userId") String userId) {
+    public ResponseEntity<List<ResponseOrder>> createUser(@PathVariable("userId") String userId) throws Exception {
+        log.info("Before retrieve orders data");
         Iterable<OrderEntity> orderList = orderService.getOrdersByUserId(userId);
 
         List<ResponseOrder> result = new ArrayList<>();
         orderList.forEach(v -> {
             result.add(new ModelMapper().map(v, ResponseOrder.class));
         });
+        try{
+            Thread.sleep(1000);
+            throw new Exception("장애 발생");
+        }catch (InterruptedException ex){
+            log.warn(ex.getMessage());
+        }
+
+        log.info("After received orders data");
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
